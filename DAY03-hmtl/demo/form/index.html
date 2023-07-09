@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <!-- form-->
+    <h1>DANG KY</h1>
+    <form action="process.php" method="post">
+        <label for="name">User name:</label>
+        <input type="text" id="name" placeholder="Enter user name..." name="user name"> <br>Email
+        <input type="email" id="email" placeholder="Enter email" name="email" required> <br>password
+        <input type="password" id="password" placeholder="Enter password" name="password"> <br>
+         Thong tin <br> Ho va ten
+        <input type="text" id="name" name="name"> <br> Gioi tinh <br>
+        <input type="radio" name="gender" value="male" checked> Male <br>
+        <input type="radio" name="gender" value="female"> Female <br>
+        <input type="radio" name="gender" value="other"> Other <br> 
+    <!--select demo-->
+        <select name="contry">
+            <option value="Ha Noi">Ha Noi</option> <br>
+            <option value="Ho chi Minh"> Ho Chi Minh</option> <br>
+            <option value="Da Nang">Da Nang</option> <br>
+        </select> <br> Ngay sinh 
+        <input type="date" name="date" > <br>
+        <input type="submit" value="Sign up"> 
+        <input type="reset"> <br>
+    </form>
+    
+</body>
+</html>

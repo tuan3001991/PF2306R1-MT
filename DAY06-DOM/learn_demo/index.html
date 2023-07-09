@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ứng dụng máy tính</title>
+  <style>
+    .calculator {
+      width: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f2f2f2;
+    }
+    .button {
+      width: 48px;
+      height: 48px;
+      margin: 5px;
+      font-size: 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 10px;
+      font-size: 24px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="result" id="result">0</div>
+    <div>
+      <div class="button" onclick="appendToResult('7')">7</div>
+      <div class="button" onclick="appendToResult('8')">8</div>
+      <div class="button" onclick="appendToResult('9')">9</div>
+      <div class="button" onclick="appendToResult('/')">/</div>
+    </div>
+    <div>
+      <div class="button" onclick="appendToResult('4')">4</div>
+      <div class="button" onclick="appendToResult('5')">5</div>
+      <div class="button" onclick="appendToResult('6')">6</div>
+      <div class="button" onclick="appendToResult('*')">*</div>
+    </div>
+    <div>
+      <div class="button" onclick="appendToResult('1')">1</div>
+      <div class="button" onclick="appendToResult('2')">2</div>
+      <div class="button" onclick="appendToResult('3')">3</div>
+      <div class="button" onclick="appendToResult('-')">-</div>
+    </div>
+    <div>
+      <div class="button" onclick="appendToResult('0')">0</div>
+      <div class="button" onclick="appendToResult('.')">.</div>
+      <div class="button" onclick="calculateResult()">=</div>
+      <div class="button" onclick="appendToResult('+')">+</div>
+    </div>
+    <div>
+      <div class="button" onclick="clearResult()">Clear</div>
+    </div>
+  </div>
+
+  <script>
+    function appendToResult(value) {
+      var result = document.getElementById("result");
+      result.innerHTML += value;
+    }
+
+    function calculateResult() {
+      var result = document.getElementById("result");
+      result.innerHTML = eval(result.innerHTML);
+    }
+
+    function clearResult() {
+      var result = document.getElementById("result");
+      result.innerHTML = 0;
+    }
+  </script>
+</body>
+</html>

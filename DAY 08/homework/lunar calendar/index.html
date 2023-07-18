@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunar Calendar</title>
+</head>
+
+<body>
+    <p>Nhập năm dương lịch</p>
+    <input type="number" onchange="getYears(this)">
+    <br>
+    <button type="button" onclick="getLunarYears()">Kiểm tra</button>
+    <br>
+    <p id="result"></p>
+    <script>
+        let year, can, chi, tempt1, tempt2;
+        let result = document.getElementById('result');
+        function getYears(obj) {
+            year = parseInt(obj.value);
+        }
+       
+        function getLunarYears() {
+            can = (year % 10); 
+             chi = (year % 12); 
+            switch (can) {
+                case 0: tempt1 = "Canh"; break;
+                case 1: tempt1 = "Tân"; break;
+                case 2: tempt = "Nhâm"; break;
+                case 3: tempt1 = "Quý"; break;
+                case 4: tempt = "Giáp"; break;
+                case 5: tempt1 = "Bính"; break;
+                case 6: tempt1 = 'Đinh'; break;
+                case 7: tempt1 = "Mậu"; break;
+                case 8: tempt1 = "Mậu"; break;
+                default:
+                    tempt1 = "Kỷ"
+                    break;
+                  
+            }
+            switch (chi) {
+                case 0: tempt2 = "Thân"; break;
+                case 1: tempt2 = "Dậu"; break;
+                case 2: tempt2 = "Tuất"; break;
+                case 3: tempt2 = "Hợi"; break;
+                case 4: tempt2 = "Tý"; break;
+                case 5: tempt2 = "Sửu"; break;
+                case 6: tempt2 = 'Dần'; break;
+                case 7: tempt2 = "Mẹo"; break;
+                case 8: tempt2 = "Thìn"; break;
+                case 9: tempt2 = "Tỵ"; break;
+                case 10: tempt2 = "Ngọ"; break;
+                default:
+                    tempt2 = "Mùi"
+                    break;
+                    
+            }
+            
+            result.innerHTML = 'Năm âm lịch là: ' + "năm " + tempt1 + " " + tempt2;
+        }
+    </script>
+
+</body>
+
+</html>

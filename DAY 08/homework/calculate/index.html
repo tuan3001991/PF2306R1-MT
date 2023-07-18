@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate</title>
+    <link rel="stylesheet" href="asset/bootstrap-5.2.3-dist/css/bootstrap.min.css">
+    <script src="asset/bootstrap-5.2.3-dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <input type="text" size="40" disabled id="screen">
+    <table>
+        <tr>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getCalculate('+')">+</button></td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getCalculate('-')">-</button></td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getCalculate('/')">/</button></td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getCalculate('*')">*</button></td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getClear()">C</button></td>
+        </tr>
+        <br><br>
+        <tr>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getNumber(this)" value="0">0</button>
+            </td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getNumber(this)" value="1">1</button>
+            </td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getNumber(this)" value="2">2</button>
+            </td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getNumber(this)" value="3">3</button>
+            </td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getNumber(this)" value="4">4</button>
+            </td>
+        </tr>
+        <tr>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getNumber(this)" value="5">5</button>
+            </td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getNumber(this)" value="6">6</button>
+            </td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getNumber(this)" value="7">7</button>
+            </td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getNumber(this)" value="8">8</button>
+            </td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getNumber(this)" value="9">9</button>
+            </td>
+        </tr>
+        <tr>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getCount()">=</button></td>
+            <td><button class="btn btn-light btn-outline-dark px-3 m-2" onclick="getCalculate('^')">^</button></td>
+        </tr>
+
+    </table>
+    <script>
+        let number1, number2, temp = "", operator;
+        let screen = document.getElementById('screen');
+        function getClear() {
+            temp = "";
+            screen.value = "";
+        }
+        function getNumber(obj) {
+            let num = obj.value;
+            temp += num;
+            screen.value = temp;
+            // console.log(temp);       
+        }
+        function getCalculate(ob) {
+            number1 = Number(temp);
+            temp = "";
+            operator = ob;
+            // console.log(number1,operator);
+        }
+        function getCount() {
+            if (temp.length == 0) {
+                screen.value = number1;
+            } else {
+                number2 = Number(temp);
+                // console.log(number2);
+                switch (operator) {
+                    case "+": screen.value = number1 + number2; break;
+                    case "-": screen.value = number1 - number2; break;
+                    case "/": screen.value = number1 / number2; break;
+                    case "*": screen.value = number1 * number2; break;
+                    case "^": screen.value = number1 ** number2; break;
+                    default:
+                        break;
+                }
+            }
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>

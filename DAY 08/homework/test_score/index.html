@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Score</title>
+</head>
+<body>
+    <h1>TÍNH ĐIỂM THI ĐẠI HỌC</h1>
+    <br>
+    <b>Môn Toán</b>
+    <input type="number" onchange="getMath(this)" min="0" max="10">
+    <br> <br><br>
+    <b>Môn Văn</b>
+    <input type="number" onchange="getLiterature(this)" min="0" max="10">
+    <br><br><br>
+    <b>Môn Anh</b>
+    <input type="number" onchange="getEnglish(this)" min="0" max="10">
+   <br><br><br>
+    <b>Khu Vực</b>
+    <select name="" id="area" onchange="getArea(this)">
+        <option value="" selected>--Chọn khu vực---</option>
+        <option value="kv1">KV1</option>
+        <option value="kv2">KV2</option>
+        <option value="kv2-nt">KV2-NT</option>
+        <option value="kv3">KV3</option>
+    </select>
+    <br><br><br>
+    <button onclick="getCount()">TÍNH ĐIỂM</button>
+    <br>
+    <p id="result"></p>
+    <script>
+        let math,literature,english,area,total;
+        let result=document.getElementById('result');
+        function getMath(obj) {
+            math=Number(obj.value);
+            
+        }
+        function getLiterature(obj) {
+            literature=Number(obj.value);
+        }
+        function getEnglish(obj) {
+            english=Number(obj.value);
+            
+        }
+        function getArea(obj) {
+            switch (obj.value) {
+                case "kv1":area=0.75;break;
+                case "kv2":area=0.5;break;
+                case "kv2-nt":area=0.25;break;               
+                default:area=0;
+                    break;
+            }
+            console.log(area);
+            
+        }
+        function getCount() {
+            total=math+literature+english+area;
+            console.log(total);     
+            result.innerHTML=`Tổng điểm khối D của bạn là: ${total}`;   
+        }
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency</title>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>Amount</th>
+            <th>From Currency</th>
+            <th>To Currency</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                <input type="number" min="0" id="amount" onchange="getAmout(this)">
+            </td>
+            <td>
+                <select name="" id="currency1" onchange="fromCurrency(this)">
+                    <option value="">-chọn quốc gia-</option>
+                    <option value="vietnam">VietNam</option>
+                    <option value="usd">USD</option>
+                </select>
+            </td>
+            <td>
+                <select name="" id="currency2" onchange="toCurrency(this)">
+                    <option value="">-chọn quốc gia-</option>
+                    <option value="vietnam">VietNam</option>
+                    <option value="usd">USD</option>
+                </select>
+            </td>
+            <td>
+                <button type="button" onclick="makedConvert()"> Convert</button>
+            </td>
+        </tr>
+    </table>
+    <p id="result"></p>
+
+    <script>
+        let currency1, currency2, total, amout;
+        let result = document.getElementById('result');
+        // let amout=document.getElementById('amout');
+        // amout.addEventListener("change",function getAmout(){
+        //     cal=amout.value;
+        //     onsole.log(amout);
+        // });
+        function getAmout(obj) {
+            amout = parseInt(obj.value);
+            console.log(amout);
+
+        }
+        function fromCurrency(obj) {
+            currency1 = obj.value;
+            console.log(currency1);
+        }
+        function toCurrency(obj) {
+            currency2 = obj.value;
+            console.log(currency2);
+        }
+        function makedConvert() {
+            if (currency1 == 'vietnam') {
+                switch (currency2) {
+                    case 'vietnam': total = amout * 1; break;
+                    case 'usd': total = amout * 0.000042; break;
+                    default:
+                        break;
+                }
+            } else if (currency1 == 'usd') {
+                switch (currency2) {
+                    case 'vietnam': total = amout * 1; break;
+                    case 'usd': tatal = amout * 23.642;; break;
+                    default:
+                        break;
+                }     
+
+            }
+            result.innerHTML = `${amout} ${currency1}  quy đổi ra ${currency2} là: ${total}`;
+        }
+    </script>
+
+
+</body>
+
+</html>

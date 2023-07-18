@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College_Grades</title>
+</head>
+<body>
+    <h4>Tính điểm đại học</h4><br>
+    <p>Điểm môn toán</p>
+    <input type="number" id="math" ><br>
+    <p>Điểm môn văn</p>
+    <input type="number" id ="literature"><br>
+    <p>Điểm môn tiếng anh</p>
+    <input type="number" id="english"><br>
+    <p>Khu vực</p><br>
+    <select name="kv" id="kv" onchange="getvalue(this)">
+        <option value="kv1">KV1</option>
+        <option value="kv2_NT">KV2_NT</option>
+        <option value="kv2">KV2</option>
+        <option value="kv3">KV3</option>
+    </select>
+    <button type="button" onclick="checkValue()">Tính điểm</button>
+    <p id="result"></p>
+
+    <script>
+        let math;
+        let literature;
+        let english;
+        let kv,score;
+        let result = document.getElementById("result");
+        function getvalue(obj) {
+            switch (obj.value) {
+                case "kv1": kv=0.75; break;
+                case "kv2_NT": kv=0.5; break;
+                case "kv2": kv=0.25; break;          
+                default:
+                    kv=0;
+                    break;
+            }
+            console.log(kv);
+        }
+          
+        function checkValue(){
+            math=document.getElementById("math").value;
+            literature= document.getElementById("literature").value;
+            english=document.getElementById("english").value;
+            score= math +literature+english+ kv;
+          
+           result.innerHTML= score;
+        }
+
+      
+    </script>
+</body>
+</html>

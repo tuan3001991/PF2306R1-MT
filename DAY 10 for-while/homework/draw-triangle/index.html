@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>In các hình tam giác vuông</title>
+  <style>
+    .triangle {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-bottom: 20px solid black;
+      border-right: 20px solid black;
+      transform: rotate(45deg);
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="triangles"></div>
+
+  <script>
+    var numTriangles = 5; // Số lượng tam giác vuông cần in ra
+    var trianglesContainer = document.getElementById('triangles');
+
+    for (var i = 0; i < numTriangles; i++) {
+      var triangle = document.createElement('div');
+      triangle.className = 'triangle';
+      trianglesContainer.appendChild(triangle);
+    }
+  </script>
+</body>
+</html>

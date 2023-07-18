@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bảng cửu chương</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        
+        td {
+            padding: 5px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bảng cửu chương</h1>
+    <div id="multiplicationTable"></div>
+
+    <script>
+        let i,j,cell,row;
+        let table = document.createElement('table');
+
+        for ( i = 1; i <= 9; i++) {
+             row = document.createElement('tr');
+
+            for ( j = 1; j <= 9; j++) {
+                 cell = document.createElement('td');
+                cell.textContent = i + ' x ' + j + ' = ' + (i * j);
+                row.appendChild(cell);
+            }
+
+            table.appendChild(row);
+        }
+
+        document.getElementById('multiplicationTable').appendChild(table);
+    </script>
+</body>
+</html>

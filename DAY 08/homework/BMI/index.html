@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count BMI</title>
+</head>
+
+<body>
+    <p>Nhập cân nặng</p>
+    <input type="number" id="weight" onchange="getWeight(this)">
+    <p>Nhập chiều cao</p>
+    <input type="number" id="height" onchange="getHeight(this)">
+    <br>
+    <button type="button" onclick="countBmi()">Tính BMI</button>
+    <p id="result"></p>
+    <script>
+        let weight, height, Bmi;     
+        let result = document.getElementById('result');
+
+        function getWeight(obj) {
+            weight = parseFloat(obj.value);
+        }
+
+        function getHeight(obj) {
+            height = parseFloat(obj.value);
+        }
+
+        function countBmi() {
+            let count = weight/(height * height);
+       
+            if (count < 16) {
+                Bmi = "Gầy độ III";
+            } else if (count >= 16 && count < 17) {
+                Bmi = "Gầy độ II";
+            } else if (count >= 17 && count < 18.5) {
+                Bmi = "Gầy độ I";
+            } else if (count >= 18.5 && count < 25) {
+                Bmi = "Bình thường";
+            } else if (count >= 25 && count < 30) {
+                Bmi = "Thừa câng";
+            } else if (count >= 35 && count < 40) {
+                Bmi = "Béo phì độ 1";
+            } else {
+                Bmi = "Béo phì độ III";
+            }
+            result.innerHTML = Bmi;
+        }
+
+    </script>
+</body>
+
+</html>

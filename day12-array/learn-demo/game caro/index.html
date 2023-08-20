@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Caro</title>
+    <style>
+         table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+            text-align: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="caro"></table>
+    <br><br>
+    <button type="button" onclick="changeValue()">Change Value</button>
+    <script>
+       
+        let arr = [];
+        let i, j, row, col;
+        let n = 5, m = 5;
+        function initBoard() {
+            for (i = 0; i < n; i++) {
+                arr[i] = [];
+                for (j = 0; j < m; j++) {
+                    arr[i][j] = 0;
+                }
+
+            }
+            console.log(arr);
+
+        }
+        function initTable() {
+            let caro = document.getElementById('caro');
+            caro.innerHTML = '';
+            for (i = 0; i < n; i++) {
+                row = document.createElement('tr');
+                for (j = 0; j < m; j++) {
+                    col = document.createElement('td');
+                    col.textContent = arr[i][j];
+                    row.appendChild(col);
+                }
+                caro.appendChild(row);
+            }
+
+            console.log(caro);
+
+        }
+        function changeValue() {
+            let proX=parseInt(prompt('Nhập vị trí dòng'));
+            let proY=parseInt(prompt('Nhập vị trí cột'));
+            arr[proX-1][proY-1]='X';
+            initTable()
+            
+        }
+        initBoard();
+        initTable();
+    </script>
+
+</body>
+
+</html>

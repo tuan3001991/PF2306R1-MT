@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        let gameSize = 400;
+        canvas.width = gameSize;
+        canvas.height = gameSize;
+        canvas.style = "border:2px solid black";
+        const ctx = canvas.getContext('2d');
+        let unit = 20;
+        let left = 37;
+        let right = 39;
+        let up = 38;
+        let down = 40;
+
+        class Vector {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+        }
+        class Snake {
+            constructor() {
+                this.body = [
+                    new Vector(unit * 3, unit * 4),
+                    new Vector(unit * 4, unit * 4),
+                    new Vector(unit * 5, unit * 4)
+                ];
+                this.direction = new Vector(-1, 0);
+
+            }
+            drawSnake() {
+                ctx.fillStyle = 'blue';
+                ctx.fillRect(this.body[0].x, this.body[0].y, unit, unit);
+                ctx.fillStyle = 'black';
+                for (let i = 1; i < this.body.length; i++) {
+                    ctx.fillRect(this.body[i].x, this.body[i].y, unit, unit);
+                }
+            }
+            clear() {
+                for (let i = 0; i < this.body.length; i++) {
+                    ctx.clearRect(this.body[i].x, this.body[i].y, unit, unit);
+                }
+
+            }
+            move() {
+                this.clear();
+                for (let i = this.body.length - 1; i >= 1; i--) {
+                    this.body[i].x = this.body[i - 1].x;
+                    this.body[i].y = this.body[i - 1].y;
+                }
+                this.body[0].x += this.direction.x * unit;
+                this.body[0].y += this.direction.y * unit;
+                this.drawSnake();
+            }
+
+            checkEat(food) {
+                let head = this.body[0];
+                return food.x == head.x && food.y == head.y;
+            }
+            grow() {
+                this.clear();
+                let snakeLength = this.body.length;
+                let elementX = this.body[snakeLength - 1].x - this.body[snakeLength - 2].x;
+                let elementY = this.body[snakeLength - 1].y - this.body[snakeLength - 2].x;
+                let newElement = new Vector(
+                    this.body[this.body[snakeLength - 1].x + elementX],
+                    this.body[this.body[snakeLength - 1].y + elementY]
+                )
+                this.body.push(newElement);
+                this.drawSnake();
+            }
+
+
+        }
+
+        class Food {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            getRamdomNumber() {
+                let randomNumber = Math.floor(Math.random() * gameSize);
+                randomNumber -= randomNumber % unit;
+                return randomNumber;
+            }
+            draw() {
+                ctx.fillStyle = 'red';
+                ctx.fillRect(this.x, this.y, unit, unit);
+            }
+            clear() {
+                ctx.clearRect(this.x, this.y, unit, unit);
+            }
+       
+            spawn() {
+                this.clear();
+                this.x = this.getRamdomNumber();
+                this.y = this.getRamdomNumber();
+                this.draw();
+            }
+        }
+
+       
+        let curentDirection = new Vector(-1, 0);
+        let player = new Snake();
+        player.drawSnake();
+        let food = new Food();
+        food.spawn();
+
+        setInterval(() => {
+            player.move()
+            if (player.checkEat(food)) {
+                player.grow();
+                food.spawn();
+            }
+        }, 200);
+
+        document.onkeydown = function (event) {
+            switch (event.keyCode) {
+                case left:
+                    if (curentDirection.x == 1) break;
+                    player.direction = new Vector(-1, 0);
+                    curentDirection = new Vector(-1, 0);
+                    break;
+                case right:
+                    if (curentDirection.x == -1) break;
+                    player.direction = new Vector(1, 0);
+                    curentDirection = new Vector(1, 0);
+                    break;
+                case up:
+                    if (curentDirection.y == 1) break;
+                    player.direction = new Vector(0, -1);
+                    curentDirection = new Vector(0, -1);
+                    break;
+                case down:
+                    if (curentDirection.y == -1) break;
+                    player.direction = new Vector(0, 1);
+                    curentDirection = new Vector(0, 1);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

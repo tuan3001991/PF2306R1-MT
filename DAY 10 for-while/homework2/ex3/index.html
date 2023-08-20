@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise_03</title>
+</head>
+
+<body>
+    <script>
+        let min, n = 1;
+        let max;
+        while (n * n <= 12000) {
+            min = n;
+            n++
+        }
+        document.write(`Số nhỏ nhất mà bình phương nhỏ hơn 12000 là: ${min}`)
+        document.write('<hr>')
+        n=1;
+        while (n**3 < 12000) {
+            max = n;
+            n++
+            console.log(max);
+        }
+
+        document.write(`Số nhỏ nhất mà lập phương nhỏ hơn 12000 là: ${max}`)
+
+    </script>
+</body>
+
+</html>

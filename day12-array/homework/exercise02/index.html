@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 02</title>
+</head>
+<body>
+    <input type="number" onchange="getNumber(this)">
+    <br>
+    <button type="button" onclick="checkNumber()">Check Number</button>
+    <p id = 'result'></p>
+    <script>
+        let result=document.getElementById('result');
+        let number,strNumber,i=0,strig,arr=[];
+        function getNumber(obj) {
+            number=parseInt(obj.value);
+        }
+        // function checkNumber() {
+        //   do {   
+        //       arr[i]= number%10;
+        //       number= Math.floor( number/10);
+        //       i++;
+        //   } while (number>0);
+        //   arr.reverse();
+        //  strig=[arr[0]];
+        // //   console.log(arr);
+        // console.log(strig);
+        //   for(let i=1;i<arr.length;i++) {
+        //     if (arr[i-1]%2==0 && arr[i] %2==0) {
+        //         strig.push('-', arr[i]);
+        //     }else{
+        //         strig.push(arr[i]);
+        //     }
+        //   }
+        //   console.log(strig.join(' '));
+        //   result.innerHTML=strig.join(' ');
+        // }
+        function checkNumber() {
+            arr=number.toString();
+            strig=[arr[0]];
+            console.log(arr,strig);
+            for(i=1;i< arr.length;i++) {
+                if(arr[i-1]%2==0 && arr[i]%2==0) {
+                    strig.push('-',arr[i]);
+                } else {
+                    strig.push(arr[i]);
+                }
+            }
+            console.log(strig.join(' '));
+            result.innerHTML=strig.join(' ');
+        }
+    </script>
+</body>
+</html>

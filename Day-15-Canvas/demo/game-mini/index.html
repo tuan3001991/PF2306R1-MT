@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Mini </title>
+</head>
+<body>  
+    <canvas id="myCanvas" width="600" height="400"  style="border:3px solid #661e1e;">></canvas>
+    <button type="button" onclick="drawCircle()">Start</button>
+    <script>
+         let canvas =document.getElementById('myCanvas');
+         let ctx= canvas.getContext("2d");
+        function Circle(x,y,radius) {
+            this.x=x;
+            this.y=y;
+            this.radius= radius;         
+        }
+
+        function drawCircle() {
+            let circle= new Circle(500, 300, 80);
+           ctx.beginPath();
+            ctx.arc(circle.x, circle.y, circle.radius, 0, 2*Math.PI);
+            ctx.fillStyle = "blue";
+            ctx.fill();
+        }
+       
+    </script>
+</body>
+</html>

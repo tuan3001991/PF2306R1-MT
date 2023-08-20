@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Caro Game</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+            text-align: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="board"></table>
+    <button onclick="changeValue()">Change Value</button>
+    <script>
+        // Kích thước của bàn cờ
+        const N = parseInt(prompt('Nhập vào số dong của bàn cờ')); // Số dòng
+        const M = parseInt(prompt('Nhập vào số cột của bàn cờ')); // Số cột
+
+        let board = []; // Mảng lưu trữ giá trị trên bàn cờ
+
+        // Khởi tạo bàn cờ với giá trị mặc định là 0
+        function initBoard() {
+            for (let i = 0; i < N; i++) {
+                board[i] = [];
+                for (let j = 0; j < M; j++) {
+                    board[i][j] = 0;
+                }
+            }
+        }
+
+        // Tạo bàn cờ trên giao diện
+        function renderBoard() {
+            const table = document.getElementById("board");
+            table.innerHTML = "";
+
+            for (let i = 0; i < N; i++) {
+                const row = document.createElement("tr");
+                for (let j = 0; j < M; j++) {
+                    const cell = document.createElement("td");
+                    cell.textContent = board[i][j];
+                    cell.onclick = function () {
+                        changeCellValue(i, j);
+                    };
+                    row.appendChild(cell);
+                }
+                table.appendChild(row);
+            }
+        }
+
+        // Hàm xử lý khi người dùng thay đổi giá trị phần tử
+        function changeCellValue(row, col) {
+            const newValue = prompt("Nhập giá trị mới cho ô (" + row + ", " + col + ")", board[row][col]);
+            if (newValue !== null) {
+                board[row][col] = parseInt(newValue);
+                renderBoard();
+            }
+        }
+
+        // Hàm gọi khi người dùng click vào nút "Change Value"
+        function changeValue() {
+            const row = prompt("Nhập dòng của ô cần thay đổi", "0");
+            const col = prompt("Nhập cột của ô cần thay đổi", "0");
+            if (row !== null && col !== null) {
+                const rowIndex = parseInt(row);
+                const colIndex = parseInt(col);
+                if (isValidCell(rowIndex, colIndex)) {
+                    changeCellValue(rowIndex, colIndex);
+                } else {
+                    alert("Vị trí không hợp lệ!");
+                }
+            }
+        }
+
+        // Hàm kiểm tra xem vị trí có hợp lệ không
+        function isValidCell(row, col) {
+            return row >= 0 && row < N && col >= 0 && col < M;
+        }
+
+        // Khởi tạo bàn cờ và hiển thị ban đầu
+        initBoard();
+        renderBoard();
+
+    </script>
+</body>
+
+</html>

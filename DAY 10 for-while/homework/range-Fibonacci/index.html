@@ -11,33 +11,43 @@
     <p id="rel"></p>
     <script>
         let sequence, a, b, i, n, result, temp;
-        let rel=document.getElementById('rel');
+        let rel = document.getElementById('rel');
         function fibonacci(n) {
-            sequence = [];
-            a = 0;
+            sequence = '';
+            a = 1;
             b = 1;
             i = 0;
-
-            while (i <= n) {
-                sequence.push(a);
-                temp = a;
-                a = b;
-                b = temp + b;
-                i++;
+            if (n == 1) {
+                sequence = '1';
             }
+            if (n == 2) {
+                sequence = '1 , 1';
 
+            }
+            if (n > 2) {
+                sequence = '1 , 1';
+               for(i=2;i<n;i++) {
+
+                    temp = a + b;
+                    a = b;
+                    b = temp;
+                    sequence = sequence +' '+ ',' +" " + temp;
+                
+                }
+
+              
+            }
             return sequence;
+            console.log(sequence);
+         
         }
 
         n = parseInt(prompt("Nhập vào số nguyên dương n:"));
+       rel.textContent= fibonacci(n);
+       console.log(rel.textContent);
+       
 
-        result = fibonacci(n);
-        rel.innerHTML=result.join(", ");
-        console.log(result);
-        
 
-        console.log("Dãy số Fibonacci gồm", n, "số:");
-        console.log(result.join(", "));
 
     </script>
 

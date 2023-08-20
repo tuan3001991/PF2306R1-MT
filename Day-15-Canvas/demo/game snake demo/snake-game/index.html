@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snake Game</title>
+</head>
+<body>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const context = canvas.getContext("2d");
+
+        class SnakeGame {
+            constructor() {
+                this.canvasWidth = canvas.width;
+                this.canvasHeight = canvas.height;
+                this.snakeSize = 20;
+                this.snake = [{ x: 100, y: 100 }];
+                this.food = { x: 200, y: 200 };
+                this.direction = "right";
+                this.score = 0;
+
+                document.addEventListener("keydown", this.handleKeyPress.bind(this));
+                this.updateGame();
+            }
+
+            handleKeyPress(event) {
+                const key = event.key;
+                if (key === "ArrowUp" && this.direction !== "down") {
+                    this.direction = "up";
+                } else if (key === "ArrowDown" && this.direction !== "up") {
+                    this.direction = "down";
+                } else if (key === "ArrowLeft" && this.direction !== "right") {
+                    this.direction = "left";
+                } else if (key === "ArrowRight" && this.direction !== "left") {
+                    this.direction = "right";
+                }
+            }
+
+            updateGame() {
+                this.updateSnakePosition();
+                this.checkCollision();
+                this.checkFoodEaten();
+                this.drawGame();
+
+                setTimeout(() => {
+                    this.updateGame();
+                }, 100);
+            }
+
+            updateSnakePosition() {
+                const newHead = { ...this.snake[0] };
+
+                if (this.direction === "up") {
+                    newHead.y -= this.snakeSize;
+                } else if (this.direction === "down") {
+                    newHead.y += this.snakeSize;
+                } else if (this.direction === "left") {
+                    newHead.x -= this.snakeSize;
+                } else if (this.direction === "right") {
+                    newHead.x += this.snakeSize;
+                }
+
+                this.snake.unshift(newHead);
+                if (this.snake.length > this.score + 1) {
+                    this.snake.pop();
+                }
+            }
+
+            checkCollision() {
+                const head = this.snake[0];
+                if (
+                    head.x < 0 ||
+                    head.x >= this.canvasWidth ||
+                    head.y < 0 ||
+                    head.y >= this.canvasHeight
+                ) {
+                    this.gameOver();
+                }
+
+                for (let i = 1; i < this.snake.length; i++) {
+                    if (head.x === this.snake[i].x && head.y === this.snake[i].y) {
+                        this.gameOver();
+                    }
+                }
+            }
+
+            checkFoodEaten() {
+                const head = this.snake[0];
+                if (head.x === this.food.x && head.y === this.food.y) {
+                    this.score++;
+                    this.generateFood();
+                }
+            }
+
+            generateFood() {
+                const maxX = (this.canvasWidth / this.snakeSize) | 0;
+                const maxY = (this.canvasHeight / this.snakeSize) | 0;
+                const randomX = Math.floor(Math.random() * maxX) * this.snakeSize;
+                const randomY = Math.floor(Math.random() * maxY) * this.snakeSize;
+                this.food = { x: randomX, y: randomY };
+            }
+
+            drawGame() {
+                context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+                // Draw snake
+                context.fillStyle = "green";
+                this.snake.forEach(segment => {
+                    context.fillRect(segment.x, segment.y, this.snakeSize, this.snakeSize);
+                });
+
+                // Draw food
+                context.fillStyle = "red";
+                context.fillRect(this.food.x, this.food.y, this.snakeSize, this.snakeSize);
+
+                // Draw score
+                context.fillStyle = "black";
+                context.font = "20px Arial";
+                context.fillText("Score: " + this.score, 10, 30);
+            }
+
+            gameOver() {
+                alert("Game Over! Your score: " + this.score);
+                window.location.reload();
+            }
+        }
+
+        const game = new SnakeGame();
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Circle</title>
+
+</head>
+
+<body>
+    <canvas id="myCanvas" class="canvas"></canvas>
+    <script>
+        let canvas = document.getElementById('myCanvas');
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+        canvas.style = 'border:5px solid black';
+        let ctx = canvas.getContext('2d');
+        let radius = 40;
+        function drawCircle() {
+            let x = Math.floor(Math.random() * innerHeight);
+            let y = Math.floor(Math.random() * innerWidth);
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = ramdomColor();
+            ctx.fill();
+
+        }
+
+
+        function ramdomColor() {
+            let leters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += leters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+        // console.log(arr, color);
+
+
+        function disPlay() {
+            let gameLoop = setInterval(drawCircle, 100);
+            setTimeout(() => {
+                clearInterval(gameLoop);
+            }, 3000);
+        }
+        disPlay();
+
+    </script>
+</body>
+
+</html>

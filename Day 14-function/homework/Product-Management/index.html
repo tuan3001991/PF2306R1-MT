@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="asset/bootstrap-5.2.3-dist/css/bootstrap.min.css">
+    <script src="asset/bootstrap-5.2.3-dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <h2>Add New Product</h2>
+    <input class="form-control" type="text" id="input">
+    <br>
+    <button class="btn btn-primary" type="button" id="actionButton" dataId="@">Add</button>
+    <h4>Display All Product</h4>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th colspan="2">Product name</th>
+                <th colspan="2" class="text-info" id="products">9 products</th>
+            </tr>
+        </thead>
+        <tbody id="display">
+
+        </tbody>
+
+    </table>
+    <script>
+        let display;
+        let actionButton=document.getElementById('actionButton');
+        let input = document.getElementById('input');
+        let arr = ['Sony Xperia', 'Samsung Glaxy', 'Nokia 6', 'Xiaomi Redmi Note 4'];
+        let isActionAdd=true;
+       
+        function displayHtml() {
+           let  displayText=''
+            let display = document.getElementById('display');
+            let products = document.getElementById('products');
+            products.innerHTML = `${arr.length} products`;
+            for (let i = 0; i < arr.length; i++) {
+                displayText += `
+               <tr>
+                <td>${arr[i]}</td>
+                <td><button class="btn btn-primary" type="button" id='${i}' onclick="edit(this)" >Edit</button></td>
+                <td><button class="btn btn-danger" type="button" id='${i}' onclick="remove(this)">Delete</button></td>
+             </tr>
+               `;
+            }
+            actionButton.innerText= isActionAdd? 'Add':'Save';
+            display.innerHTML = displayText;
+        }
+       
+        function edit(obj) {
+            isActionAdd=false;
+            let id =obj.id;
+          actionButton.setAttribute('dataId',id);
+            input.value=arr[id];
+            displayHtml();
+            
+        }
+   
+        function removeElemnet(array,index) {
+            let result=[];
+            for (let i = 0; i < array.length; i++) {
+               if (i !=index) {
+                    result.push(array[i]);
+               }
+                
+            }
+            return result;
+        }
+        function remove(obj) {
+            let id= obj.id;
+            arr = removeElemnet(arr,id);
+            displayHtml();
+            
+        }
+        actionButton.addEventListener('click', function() {
+            if (isActionAdd) {
+                arr.push(input.value);
+                displayHtml();
+                input.value='';           
+            } else {
+                let data= actionButton.getAttribute('dataId');
+              arr[data]=input.value;
+                displayHtml();
+                input.value=''; 
+            }
+        })
+        displayHtml();
+
+    </script>
+
+
+</body>
+
+</html>

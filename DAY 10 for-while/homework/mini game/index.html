@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Game</title>
     <link rel="stylesheet" href="asset/bootstrap-5.2.3-dist/css/bootstrap.min.css">
-    <scrip src="asset/bootstrap-5.2.3-dist/js/bootstrap.bundle.min.js"></script>
+    <scrip src="asset/bootstrap-5.2.3-dist/js/bootstrap.bundle.min.js">
+        </script>
 </head>
 
 <body>
     <h1>TRÒ CHƠI ĐOÁN SỐ</h1> <br><br>
-    <button id="play-button"  class="btn btn-primary">Chơi</button>
+    <button id="play-button" class="btn btn-primary">Chơi</button>
     <script>
         //Khai báo biến
-        let playButton, limit, randomNumber, guessCount, userGuess;
+        let playButton, limit, randomNumber, guessCount, userGuess,min;
         // Lấy tham chiếu tới button "Chơi"
         playButton = document.getElementById("play-button");
 
@@ -24,15 +25,22 @@
         function playGame() {
             // Hiển thị cửa sổ prompt để người dùng nhập vào giới hạn số lớn nhất
             limit = parseInt(prompt("Nhập vào giới hạn số lớn nhất:"));
+            min=parseInt(prompt('Nhập vào giới hạn số nhỏ nhất'));
 
             // Kiểm tra xem người dùng đã nhập giới hạn số lớn nhất hay chưa
-            if (isNaN(limit)) {
+            if (isNaN(limit,min)) {
                 alert("Vui lòng nhập một số hợp lệ!");
                 return;
             }
+            if(min>limit){
+                let temp = limit;
+                limit=  min;
+                min=temp;
+            }
+            console.log(min,limit);
 
             // Chọn số ngẫu nhiên trong khoảng mà người dùng chọn
-            randomNumber = Math.floor(Math.random() * limit) + 1;
+            randomNumber = Math.floor(Math.random() * (limit-min)) + min;
 
             // Biến đếm số lần đoán
             guessCount = 0;
@@ -40,7 +48,7 @@
             // Vòng lặp để cho phép người dùng đoán tối đa 3 lần
             while (guessCount < 3) {
                 // Hiển thị cửa sổ prompt để người dùng nhập giá trị đoán
-                userGuess = parseInt(prompt("Đoán một số trong khoảng từ 1 đến " + limit));
+                userGuess = parseInt(prompt("Đoán một số trong khoảng từ "+ min + "đến " + limit));
 
                 // Kiểm tra xem người dùng đã nhập giá trị đoán hay chưa
                 if (isNaN(userGuess)) {
@@ -49,7 +57,7 @@
                 }
 
                 // Kiểm tra giá trị đoán của người dùng
-                if (userGuess === randomNumber) {
+                if (userGuess == randomNumber) {
                     alert("Chúc mừng! Bạn đã đoán đúng.");
                     break; // Kết thúc lượt chơi nếu người dùng đoán đúng
                 } else if (userGuess < randomNumber) {
@@ -62,7 +70,7 @@
             }
 
             // Kiểm tra nếu người dùng đã hết số lần đoán
-            if (guessCount === 3) {
+            if (guessCount == 3) {
                 alert("Bạn đã hết số lần đoán. Số cần tìm là " + randomNumber);
             }
         }

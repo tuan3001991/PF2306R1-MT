@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise  03</title>
+</head>
+<body>
+    <input type="text" onchange="getText(this)">
+    <button type="button" onclick="checkText()">Check</button>
+    <p id="result"></p>
+    <script>
+        let text;
+        let strig=[];
+        let arr=[];
+        let upper='QWERTYUIOPASDFGHJKLZXCVBNM';
+        let low='qwertyuiopasdfghjklzxcvbnm';
+        let result=document.getElementById('result');
+        function getText(obj) { 
+            text=obj.value;
+        }
+        function checkText() {
+            arr= text;
+            console.log(arr[0]);
+            for(let i=0;i<arr.length;i++) {
+                if(upper.includes(arr[i])) {
+                    strig.push(arr[i].toUpperCase());
+                }
+            }
+            console.log(strig);
+            
+        }
+     
+     
+        
+    </script>
+</body>
+</html>

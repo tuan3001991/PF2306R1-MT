@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving rect</title>
+</head>
+<body>
+    <canvas id="myCanvas" ></canvas>
+    <script>
+        let canvas = document.getElementById('myCanvas');
+        canvas.width= '500';
+        canvas.height='500';
+        canvas.style='border: 1px solid black';
+        let x ;
+        let y;
+        let radius;
+        let width=30;
+        let height= 30;
+        let rectX=100;
+        let rectY=100;
+        let distance= 10, speed=100;
+        let ctx = canvas.getContext('2d');
+           
+        function drawCircle(x,y,radius) {
+            ctx.beginPath();
+            ctx.arc(x,y,radius,0, 2*Math.PI);
+            ctx.fillStyle = 'blue';
+            ctx.fill();
+        }
+        function clearCircle() {
+            ctx.clearRect(x-radius,y-radius,radius*2,radius*2);
+        }
+         function drawRect() {
+                ctx.fillStyle='red';
+                ctx.fillRect(rectX,rectY,width,height);
+        }
+         function drawLine() {
+            ctx.beginPath();
+            ctx.moveTo(x,y);
+            ctx.lineTo(70,90);
+            ctx.lineTo(90,150);
+            ctx.lineWidth='20';
+            ctx.strokeStyle='blue';
+            ctx.lineCap='square';
+            ctx.lineJoin='round'
+            ctx.stroke();
+         }
+        function moveCircleTopBootom() {
+            clearCircle();
+            let isTop =y<=radius;
+            let isBottom=y+ radius>=500;
+            if (isTop || isBottom) {
+                distance=-distance;
+            }
+            y+=distance;
+            drawCircle()
+
+        }
+        function moveCircleLeftRight() {
+            clearCircle();
+            let isLeft=x<=radius;
+            let isRight=x+radius>=500;
+            if (isLeft || isRight) {
+                distance=-distance;
+            }
+            x+=distance;
+            drawCircle();
+        }
+         function int() {
+            clearCircle();
+            let gameLoop = setInterval(moveCircleTopBootom,100);
+            // let gameLoop1= setInterval( moveCircleLeftRight,10);     
+         }
+         int();
+         
+        // clearRect() 
+    </script>
+</body>
+</html>

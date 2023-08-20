@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Game Caro đơn giản</title>
+    <style>
+        .board {
+            border-collapse: collapse;
+            background-color: darkgreen;
+        }
+
+        .board td {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="board" id="board"></table>
+
+    <script>
+        const N =  parseInt(prompt('Nhập vào số dòng của bàn cờ')); // Số dòng của bàn cờ
+        const M =  parseInt(prompt('Nhập vào số cột của bàn cờ')); // Số cột của bàn cờ
+        let currentPlayer = 'X'; // Người chơi hiện tại
+
+        // Tạo bàn cờ với giá trị mặc định là 0
+        const boardData = Array.from({ length: N }, () => Array(M).fill(0));
+
+        // Hàm để vẽ bàn cờ
+        function drawBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            for (let i = 0; i < N; i++) {
+                const row = document.createElement('tr');
+                for (let j = 0; j < M; j++) {
+                    const cell = document.createElement('td');
+                    cell.textContent = boardData[i][j] || ''; // Hiển thị 'X' hoặc 'O' nếu ô đã được đánh
+                    cell.dataset.row = i;
+                    cell.dataset.col = j;
+                    cell.addEventListener('click', handleCellClick);
+                    row.appendChild(cell);
+                }
+                board.appendChild(row);
+            }
+        }
+
+        // Hàm xử lý khi người chơi click vào ô trong bàn cờ
+        function handleCellClick(event) {
+            const row = event.target.dataset.row;
+            const col = event.target.dataset.col;
+
+            if (boardData[row][col] === 0) { // Kiểm tra ô còn trống không
+                boardData[row][col] = currentPlayer;
+                drawBoard();
+                if (checkWin(row, col)) {
+                    alert(currentPlayer + ' thắng!');
+                    resetBoard();
+                    return;
+                }
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; // Đổi lượt đi
+            }
+        }
+
+        // Hàm kiểm tra nếu người chơi đã thắng sau khi đánh vào ô có tọa độ (row, col)
+        function checkWin(row, col) {
+            const directions = [
+                [-1, 0], // Kiểm tra hàng dọc
+                [1, 0],  // Kiểm tra hàng dọc
+                [0, -1], // Kiểm tra hàng ngang
+                [0, 1],  // Kiểm tra hàng ngang
+                [-1, -1], // Kiểm tra đường chéo trái
+                [-1, 1],  // Kiểm tra đường chéo phải
+                [1, -1],  // Kiểm tra đường chéo trái
+                [1, 1]    // Kiểm tra đường chéo phải
+            ];
+
+            for (const dir of directions) {
+                let count = 1;
+                for (let i = 1; i < 5; i++) {
+                    const newRow = Number(row) + dir[0] * i;
+                    const newCol = Number(col) + dir[1] * i;
+                    if (newRow >= 0 && newRow < N && newCol >= 0 && newCol < M && boardData[newRow][newCol] === currentPlayer) {
+                        count++;
+                    } else {
+                        break;
+                    }
+                }
+                for (let i = 1; i < 5; i++) {
+                    const newRow = Number(row) - dir[0] * i;
+                    const newCol = Number(col) - dir[1] * i;
+                    if (newRow >= 0 && newRow < N && newCol >= 0 && newCol < M && boardData[newRow][newCol] === currentPlayer) {
+                        count++;
+                    } else {
+                        break;
+                    }
+                }
+                if (count >= 5) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Hàm để reset bàn cờ và bắt đầu trò chơi mới
+        function resetBoard() {
+            for (let i = 0; i < N; i++) {
+                for (let j = 0; j < M; j++) {
+                    boardData[i][j] = 0;
+                }
+            }
+            currentPlayer = 'X';
+            drawBoard();
+        }
+
+        // Vẽ bàn cờ lần đầu tiên
+        drawBoard();
+    </script>
+</body>
+
+</html>

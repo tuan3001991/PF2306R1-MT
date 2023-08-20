@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Con Trấu Di Chuyển</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Tạo một hình con trấu
+        const trau = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            width: 50,
+            height: 50,
+            speed: 5,
+        };
+
+        function drawTrau() {
+            ctx.fillStyle = "#FF0000";
+            ctx.fillRect(trau.x, trau.y, trau.width, trau.height);
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function updateCanvas() {
+            clearCanvas();
+            drawTrau();
+        }
+
+        function moveTrau(direction) {
+            switch (direction) {
+                case "left":
+                    trau.x -= trau.speed;
+                    break;
+                case "right":
+                    trau.x += trau.speed;
+                    break;
+                case "up":
+                    trau.y -= trau.speed;
+                    break;
+                case "down":
+                    trau.y += trau.speed;
+                    break;
+            }
+        }
+
+        // Lắng nghe sự kiện phím được nhấn
+        document.addEventListener("keydown", (event) => {
+            const key = event.key.toLowerCase();
+            if (key === "arrowleft" || key === "a") {
+                moveTrau("left");
+            } else if (key === "arrowright" || key === "d") {
+                moveTrau("right");
+            } else if (key === "arrowup" || key === "w") {
+                moveTrau("up");
+            } else if (key === "arrowdown" || key === "s") {
+                moveTrau("down");
+            }
+
+            updateCanvas();
+        });
+
+        // Vẽ hình con trấu ban đầu
+        updateCanvas();
+    </script>
+</body>
+</html>

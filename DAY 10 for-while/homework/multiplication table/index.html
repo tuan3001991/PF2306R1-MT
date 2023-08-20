@@ -21,10 +21,10 @@
         let i,j,cell,row;
         let table = document.createElement('table');
 
-        for ( i = 1; i <= 9; i++) {
+        for ( j = 1; j <= 9; j++) {
              row = document.createElement('tr');
 
-            for ( j = 1; j <= 9; j++) {
+            for ( i = 2; i <= 9; i++) {
                  cell = document.createElement('td');
                 cell.textContent = i + ' x ' + j + ' = ' + (i * j);
                 row.appendChild(cell);

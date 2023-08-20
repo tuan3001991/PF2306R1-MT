@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math-circle-rect</title>
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+        let myCanvas = document.getElementById('myCanvas');
+        let ctx = myCanvas.getContext('2d');
+        myCanvas.width='800';
+        myCanvas.height='800';
+        myCanvas.style='border:1px solid #000000';
+        class Circle {
+            constructor(x, y, radius) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+            }
+            drawCircle(x,y,radius) {
+                ctx.beginPath();
+                ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
+                ctx.fillStyle='blue';
+                ctx.fill();
+            }
+            clearCircle() {
+                ctx.clearRect(0,0,myCanvas.height,myCanvas.width);
+            }
+            moveTopBootom() {
+               this.clearCircle();
+               this.drawCircle();
+               this.x+=1;
+            }
+            move() {
+                let gamLoop= setInterval(this.moveTopBootom,100);
+            }
+        }
+
+        class Rect {
+            constructor(x, y, width, height) {
+                this.x = x;
+                this.y = y;
+                this.w = width;
+                this.h = height;
+            }
+            drawRect() {
+                ctx.fillRect(this.x, this.y,this.w, this.h);
+                ctx.fillStyle='blue';
+            }
+        }
+        let rect1= new Rect(100,200,100,200);
+        rect1.drawRect();
+        let circle1 = new Circle(300,300,80);
+        circle1.drawCircle();
+        circle1.move();
+
+
+        function checkCollision(cir, rect) {
+            let Ax = cir.x;
+            let Ay = cir.y;
+
+            let rect_left = rect.x;
+            let rect_top = rect.y;
+            let rect_right = rect.x + rect.w;
+            let rect_bottom = rect.y + rect.h;
+
+            if (cir.x < rect_left)
+                Ax = rect_left;
+            else if (cir.x > rect_right)
+                Ax = rect_right;
+
+            if (cir.y < rect_top)
+                Ay = rect_top;
+            else if (cir.y > rect_bottom)
+                Ay = rect_bottom;
+
+            let dx = cir.x - Ax;
+            let dy = cir.y - Ay;
+
+            return (dx * dx + dy * dy) <= cir.radius * cir.radius;
+        }
+    </script>
+</body>
+
+</html>

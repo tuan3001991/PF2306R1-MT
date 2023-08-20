@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 01</title>
+</head>
+<body>
+    <script>
+     let text= prompt('Nhập vào ngôi sao');
+    let star=['Polaris','Aldebaran', 'Deneb', 'Vega', 'Altair', 'Dubhe' , 'egulus'];
+    
+    let stars=[ 'Ursa Minor','Tarurus','Cygnus', 'Lyra', 'Aquila', 'Ursa Major' ,'Leo'];
+    function findStar(text) {
+       
+        let text1=text.toLowerCase();
+        let result='';
+        for (let i = 0; i< star.length; i++) {
+            if (star[i].toLowerCase()==text1) {
+             result=stars[i];  
+             break;
+            }      
+        }
+        console.log(text,result);
+       alert(result);
+    }
+    findStar(text);
+    </script>
+</body>
+</html>

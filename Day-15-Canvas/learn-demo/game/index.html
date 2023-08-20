@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const circle1 = {
+            x: Math.floor(Math.random()*800),
+            y: Math.floor(Math.random()*800),
+            radius:Math.floor(Math.random()*200),
+            dx: 1,
+            dy: 1,
+        };
+
+        const circle2 = {
+            x: Math.floor(Math.random()*200+100),
+            y: Math.floor(Math.random()*200+100),
+            radius:Math.floor(Math.random()*50),
+            dx: -1,
+            dy: -1,
+        };
+
+        function ramdomColor() {
+            let leters="0123456789ABCDEF";
+            let color='#';
+            for (let i = 0; i < 6; i++) {
+               color+= leters[Math.floor(Math.random()*16)];
+            }
+            return color;
+        }
+        let color1=ramdomColor();
+        console.log(color1);
+        function drawCircle(x, y, radius) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = color1;
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        function checkCollision(circleA, circleB) {
+            const dx = circleA.x - circleB.x;
+            const dy = circleA.y - circleB.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < circleA.radius + circleB.radius) {
+                // Thay đổi hướng di chuyển của cả hai hình tròn
+                circleA.dx = -circleA.dx;
+                circleA.dy = -circleA.dy;
+                circleB.dx = -circleB.dx;
+                circleB.dy = -circleB.dy;
+            }
+        }
+
+        function update() {
+            clearCanvas();
+
+            circle1.x += circle1.dx;
+            circle1.y += circle1.dy;
+
+            circle2.x += circle2.dx;
+            circle2.y += circle2.dy;
+
+            if (
+                circle1.x + circle1.radius > canvas.width ||
+                circle1.x - circle1.radius < 0
+            ) {
+                circle1.dx = -circle1.dx;
+            }
+
+            if (
+                circle1.y + circle1.radius > canvas.height ||
+                circle1.y - circle1.radius < 0
+            ) {
+                circle1.dy = -circle1.dy;
+            }
+
+            if (
+                circle2.x + circle2.radius > canvas.width ||
+                circle2.x - circle2.radius < 0
+            ) {
+                circle2.dx = -circle2.dx;
+            }
+
+            if (
+                circle2.y + circle2.radius > canvas.height ||
+                circle2.y - circle2.radius < 0
+            ) {
+                circle2.dy = -circle2.dy;
+            }
+
+            checkCollision(circle1, circle2);
+
+            drawCircle(circle1.x, circle1.y, circle1.radius);
+            drawCircle(circle2.x, circle2.y, circle2.radius);
+
+            requestAnimationFrame(update);
+        }
+
+        update();
+    </script>
+</body>
+
+</html>

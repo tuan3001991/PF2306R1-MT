@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tìm học sinh có điểm cao nhất</title>
+</head>
+<body>
+    <script>
+            let numStudents = parseInt(prompt("Nhập số lượng học sinh:"));
+            let highestScore = 0;
+            let highestScoreStudent = "";
+            let i,studentName,studentScore;
+
+            for ( i = 0; i < numStudents; i++) {
+                 studentName = prompt("Nhập họ tên của học sinh thứ " + (i + 1) + ":");
+                 studentScore = parseFloat(prompt("Nhập điểm của học sinh " + studentName + ":"));
+
+                if (studentScore > highestScore) {
+                    highestScore = studentScore;
+                    highestScoreStudent = studentName;
+                }
+            }
+
+            if (highestScoreStudent !== "") {
+                alert("Học sinh có số điểm cao nhất là: " + highestScoreStudent + " với điểm " + highestScore);
+            } else {
+                alert("Không có học sinh nào được nhập vào.");
+            }
+       
+    </script>
+</body>
+</html>

@@ -13,19 +13,22 @@
         let number, reversedNumber;
         let result = document.getElementById('result');
         function reverseNumber() {
+            let temp='';
             number = parseInt(prompt("Nhập vào một số nguyên dương:"));
-            reversedNumber = 0;
+         
 
             while (number > 0) {
-                reversedNumber = reversedNumber * 10 + number % 10;
+                reversedNumber =  number % 10;
                 number = Math.floor(number / 10);
+          temp= temp+ reversedNumber;
             }
            
 
-            console.log("Số đảo ngược của số đã nhập là:", reversedNumber);
+            console.log("Số đảo ngược của số đã nhập là:", temp);
+            result.innerHTML =`Số đảo ngược của số đã nhập là ${temp}`;
         }
         reverseNumber();
-        result.innerHTML = `"Số đảo ngược của số đã nhập là ${reversedNumber}`
+       
         
 
 

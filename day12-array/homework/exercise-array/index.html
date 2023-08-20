@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Array</title>
+</head>
+
+<body>
+    <script>
+        let numberArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        let arrEven = [];
+        let arrodd = [];
+        let array = [];
+        let arr0 = [];
+        function algorithurs() {
+
+            for (let i = 0; i < numberArr.length; i++) {
+                if (numberArr[i] !== 0) {
+                    if (numberArr[i] % 2 == 0) {
+                        arrEven.push(numberArr[i]);
+                    } else {
+                        arrodd.push(numberArr[i]);
+                    }
+                } else {
+                    arr0.push(numberArr[i]);
+                }
+            }
+            array.push(arrEven, arr0, arrodd);
+            console.log(array);
+            document.write(array.join(','));
+        }
+        algorithurs();
+    </script>
+</body>
+
+</html>

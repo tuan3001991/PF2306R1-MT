@@ -62,6 +62,20 @@
                 this.body[0].y += this.direction.y * unit;
                 this.drawSnake();
             }
+            checkCollision() {
+                let head = this.body[0];
+                if (head.x <= 0 - unit || head.x >= gameSize || head.y <= 0 - unit || head.y >= gameSize) {
+                    return true;
+                }
+                for (let i = 1; i < this.body.length; i++) {
+                    if (head.x == this.body[i].x && head.y == this.body[i].y) {
+                        return true; break;
+                    }
+
+                }
+
+            }
+
 
             checkEat(food) {
                 let head = this.body[0];
@@ -79,7 +93,6 @@
                 this.body.push(newElement);
                 this.drawSnake();
             }
-
 
         }
 
@@ -101,29 +114,42 @@
             clear() {
                 ctx.clearRect(this.x, this.y, unit, unit);
             }
-       
+
             spawn() {
                 this.clear();
                 this.x = this.getRamdomNumber();
                 this.y = this.getRamdomNumber();
+                for (let i = 0; i < player.body.length; i++) {
+                   if (this.x==player.body[i].x && this.y==player.body[i].y) {
+                    this.x = this.getRamdomNumber();
+                    this.y = this.getRamdomNumber();    
+                   }
+                    
+                }
                 this.draw();
             }
         }
 
-       
+
         let curentDirection = new Vector(-1, 0);
         let player = new Snake();
         player.drawSnake();
         let food = new Food();
         food.spawn();
-
-        setInterval(() => {
+        function game() {
             player.move()
             if (player.checkEat(food)) {
                 player.grow();
                 food.spawn();
             }
-        }, 200);
+            if (player.checkCollision()) {
+                clearInterval(gamLoop);
+                alert(`Game over! Your score: ${player.body.length - 3}`);
+                window.location.reload();
+            }
+        }
+
+        let gamLoop = setInterval(game, 200);
 
         document.onkeydown = function (event) {
             switch (event.keyCode) {

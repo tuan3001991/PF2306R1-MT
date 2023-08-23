@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    class SnakeGame {
+      constructor() {
+        this.cellSize = 20;
+        this.snake = [{ x: 5, y: 5 }];
+        this.food = this.getRandomFoodPosition();
+        this.direction = 'right';
+        this.score = 0;
+
+        document.addEventListener('keydown', this.handleKeyPress.bind(this));
+      }
+
+      getRandomFoodPosition() {
+        return {
+          x: Math.floor(Math.random() * (canvas.width / this.cellSize)),
+          y: Math.floor(Math.random() * (canvas.height / this.cellSize))
+        };
+      }
+
+      draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw snake
+        for (let i = 0; i < this.snake.length; i++) {
+          ctx.fillStyle = i === 0 ? 'green' : 'lime';
+          ctx.fillRect(this.snake[i].x * this.cellSize, this.snake[i].y * this.cellSize, this.cellSize, this.cellSize);
+        }
+
+        // Draw food
+        ctx.fillStyle = 'red';
+        ctx.fillRect(this.food.x * this.cellSize, this.food.y * this.cellSize, this.cellSize, this.cellSize);
+
+        // Draw score
+        ctx.fillStyle = 'black';
+        ctx.fillText(`Score: ${this.score}`, 10, canvas.height - 10);
+      }
+
+      move() {
+        const newHead = { ...this.snake[0] };
+        switch (this.direction) {
+          case 'up':
+            newHead.y--;
+            break;
+          case 'down':
+            newHead.y++;
+            break;
+          case 'left':
+            newHead.x--;
+            break;
+          case 'right':
+            newHead.x++;
+            break;
+        }
+
+        // Check collision with self
+        for (let i = 1; i < this.snake.length; i++) {
+          if (newHead.x === this.snake[i].x && newHead.y === this.snake[i].y) {
+            this.endGame();
+            return;
+          }
+        }
+
+        // Check collision with walls
+        if (newHead.x < 0 || newHead.x >= canvas.width / this.cellSize ||
+            newHead.y < 0 || newHead.y >= canvas.height / this.cellSize) {
+          this.endGame();
+          return;
+        }
+
+        // Check collision with food
+        if (newHead.x === this.food.x && newHead.y === this.food.y) {
+          this.score++;
+          this.snake.unshift(newHead);
+          this.food = this.getRandomFoodPosition();
+        } else {
+          this.snake.unshift(newHead);
+          this.snake.pop();
+        }
+      }
+
+      handleKeyPress(event) {
+        const key = event.key;
+        if (key === 'ArrowUp' && this.direction !== 'down') {
+          this.direction = 'up';
+        } else if (key === 'ArrowDown' && this.direction !== 'up') {
+          this.direction = 'down';
+        } else if (key === 'ArrowLeft' && this.direction !== 'right') {
+          this.direction = 'left';
+        } else if (key === 'ArrowRight' && this.direction !== 'left') {
+          this.direction = 'right';
+        }
+      }
+
+      endGame() {
+        alert(`Game Over! Your score: ${this.score}`);
+        location.reload();
+      }
+
+      start() {
+        this.interval = setInterval(() => {
+          this.move();
+          this.draw();
+        }, 100);
+      }
+    }
+
+    const game = new SnakeGame();
+    game.start();
+  </script>
+</body>
+</html>
